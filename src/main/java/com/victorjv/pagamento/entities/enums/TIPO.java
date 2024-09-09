@@ -2,8 +2,8 @@ package com.victorjv.pagamento.entities.enums;
 
 public enum TIPO {
 
-    COMUM (0),
-    LOJISTA (1);
+    COMUM (1),
+    LOJISTA (2);
 
     private int cod;
 

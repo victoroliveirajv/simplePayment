@@ -3,10 +3,14 @@ package com.victorjv.pagamento.entities;
 import com.victorjv.pagamento.entities.enums.TIPO;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-public class Carteira {
+@Table(name="tb_carteira")
+public class Carteira implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,13 +21,14 @@ public class Carteira {
     @Column(unique = true)
     private String email;
     private String senha;
-    private BigDecimal saldo = BigDecimal.ZERO;
+    private Double saldo;
     private Integer tipo;
+
 
     public Carteira(){
     }
 
-    public Carteira(Long id, String nome_completo, String cpf_cnpj, String email, String senha, BigDecimal saldo, TIPO cod) {
+    public Carteira(Long id, String nome_completo, String cpf_cnpj, String email, String senha, Double saldo, TIPO cod) {
         this.id = id;
         this.nome_completo = nome_completo;
         this.cpf_cnpj = cpf_cnpj;
@@ -35,6 +40,10 @@ public class Carteira {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getNome_completo() {
@@ -69,7 +78,7 @@ public class Carteira {
         this.senha = senha;
     }
 
-    public BigDecimal getSaldo() {
+    public Double getSaldo() {
         return saldo;
     }
 
@@ -77,9 +86,34 @@ public class Carteira {
         return tipo;
     }
 
+
     private void setTipo(TIPO tipo) {
         if (tipo != null){
             this.tipo = tipo.getCod();
         }
+    }
+    
+    public void debitar(Double valor){
+        if (saldo < valor){
+            throw new RuntimeException("Saldo insuficiente");
+        }
+        this.saldo -= valor;
+
+    }
+
+    public void creditar(Double valor){
+        this.saldo += valor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Carteira carteira)) return false;
+        return Objects.equals(id, carteira.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
