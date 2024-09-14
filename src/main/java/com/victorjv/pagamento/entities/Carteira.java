@@ -15,27 +15,30 @@ public class Carteira implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome_completo;
-    @Column(unique = true)
-    private String cpf_cnpj;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
+    private String documento;
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private String senha;
-    private Double saldo;
+    private Double saldo = 0.0;
+    @Column(nullable = false)
     private Integer tipo;
 
 
     public Carteira(){
     }
 
-    public Carteira(Long id, String nome_completo, String cpf_cnpj, String email, String senha, Double saldo, TIPO cod) {
+    public Carteira(Long id, String nome_completo, String documento, String email, String senha, Double saldo, TIPO cod) {
         this.id = id;
         this.nome_completo = nome_completo;
-        this.cpf_cnpj = cpf_cnpj;
+        this.documento = documento;
         this.email = email;
         this.senha = senha;
         this.saldo = saldo;
-        setTipo(cod);
+        setTipoPrivate(cod);
     }
 
     public Long getId() {
@@ -54,12 +57,12 @@ public class Carteira implements Serializable {
         this.nome_completo = nome_completo;
     }
 
-    public String getCpf_cnpj() {
-        return cpf_cnpj;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setCpf_cnpj(String cpf_cnpj) {
-        this.cpf_cnpj = cpf_cnpj;
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public String getEmail() {
@@ -86,8 +89,12 @@ public class Carteira implements Serializable {
         return tipo;
     }
 
+    public void setTipo(int tipo){
+        this.tipo = tipo;
+    }
 
-    private void setTipo(TIPO tipo) {
+
+    private void setTipoPrivate(TIPO tipo) {
         if (tipo != null){
             this.tipo = tipo.getCod();
         }

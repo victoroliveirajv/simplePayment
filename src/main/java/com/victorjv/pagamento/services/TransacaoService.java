@@ -2,6 +2,7 @@ package com.victorjv.pagamento.services;
 
 import com.victorjv.pagamento.entities.Transacao;
 import com.victorjv.pagamento.repositories.TransacaoRepository;
+import com.victorjv.pagamento.services.exceptions.TransacaoError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,10 @@ public class TransacaoService {
     public void transferir(Transacao transacao){
 
         if (transacao.getPagador().getTipo() == 2){
-            throw new RuntimeException("Logistas não realizam pagamento");
+            throw new TransacaoError("Logistas não realizam pagamento");
         }
         if (transacao.getPagador().getSaldo() < transacao.getValor()){
-            throw new RuntimeException("Saldo insuficiente.");
+            throw new TransacaoError("Saldo insuficiente.");
         }
         transacaoRepository.save(transacao);
 

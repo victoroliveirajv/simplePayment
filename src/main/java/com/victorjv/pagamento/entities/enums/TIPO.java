@@ -5,7 +5,7 @@ public enum TIPO {
     COMUM (1),
     LOJISTA (2);
 
-    private int cod;
+    private final int cod;
 
     private TIPO(int cod){
         this.cod = cod;
@@ -14,6 +14,7 @@ public enum TIPO {
     public int getCod(){
         return cod;
     }
+
 
     public static TIPO getTipo(int cod){
 

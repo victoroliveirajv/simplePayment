@@ -2,6 +2,7 @@ package com.victorjv.pagamento.config;
 
 import com.victorjv.pagamento.entities.Carteira;
 import com.victorjv.pagamento.entities.Transacao;
+import com.victorjv.pagamento.entities.dtos.CarteiraDTO;
 import com.victorjv.pagamento.entities.enums.TIPO;
 import com.victorjv.pagamento.repositories.CarteiraRepository;
 import com.victorjv.pagamento.services.TransacaoService;
