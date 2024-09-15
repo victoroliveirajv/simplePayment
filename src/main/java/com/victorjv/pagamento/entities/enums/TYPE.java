@@ -1,14 +1,14 @@
 package com.victorjv.pagamento.entities.enums;
 
 
-public enum TIPO {
+public enum TYPE {
 
-    COMUM (1),
-    LOJISTA (2);
+    COMMON (1),
+    LOGIST(2);
 
     private final int cod;
 
-    private TIPO(int cod){
+    private TYPE(int cod){
         this.cod = cod;
     }
 
@@ -16,10 +16,9 @@ public enum TIPO {
         return cod;
     }
 
-    public static TIPO getTipo(int cod){
-        for (TIPO t : TIPO.values()){
+    public static TYPE getTipo(int cod){
+        for (TYPE t : TYPE.values()){
             if (t.getCod() == cod){
-
                 return t;
             }
         }

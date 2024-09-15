@@ -1,13 +1,13 @@
 package com.victorjv.pagamento.repositories;
 
-import com.victorjv.pagamento.entities.Carteira;
+import com.victorjv.pagamento.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface CarteiraRepository extends JpaRepository<Carteira, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<Carteira> findByDocumento(String documento);
+    Optional<User> findByDocument(String document);
 }
