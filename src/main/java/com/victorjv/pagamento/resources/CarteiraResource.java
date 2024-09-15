@@ -38,12 +38,6 @@ public class CarteiraResource {
         return ResponseEntity.ok().body(list);
     }
 
-    @PutMapping
-    public ResponseEntity<CarteiraDTO> update(@RequestBody Carteira carteira){
-
-         return ResponseEntity.ok().body(CarteiraService.toDTO(service.update(carteira)));
-    }
-
     @GetMapping(value="/{id}")
     public ResponseEntity<CarteiraDTO> findById(@PathVariable Long id){
 
@@ -54,6 +48,12 @@ public class CarteiraResource {
     public ResponseEntity<CarteiraDTO> findByDocument(@PathVariable String document){
 
         return ResponseEntity.ok().body(service.finbyCpf_cnpj(document));
+    }
+
+    @PutMapping
+    public ResponseEntity<CarteiraDTO> update(@RequestBody Carteira carteira){
+
+        return ResponseEntity.ok().body(CarteiraService.toDTO(service.update(carteira)));
     }
 
     @DeleteMapping(value = "/{id}")

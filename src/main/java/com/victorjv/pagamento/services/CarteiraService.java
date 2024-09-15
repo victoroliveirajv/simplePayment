@@ -88,4 +88,8 @@ public class CarteiraService {
                 carteira.getEmail(),carteira.getSaldo(),TIPO.getTipo(carteira.getTipo()));
     }
 
+    public Carteira toCarteira(CarteiraDTO carteiraDTO){
+        return repository.findById(carteiraDTO.id()).orElse(null);
+    }
+
 }

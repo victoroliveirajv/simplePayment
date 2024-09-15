@@ -3,6 +3,7 @@ package com.victorjv.pagamento.config;
 import com.victorjv.pagamento.entities.Carteira;
 import com.victorjv.pagamento.entities.Transacao;
 import com.victorjv.pagamento.entities.dtos.CarteiraDTO;
+import com.victorjv.pagamento.entities.dtos.TransacaoDTO;
 import com.victorjv.pagamento.entities.enums.TIPO;
 import com.victorjv.pagamento.repositories.CarteiraRepository;
 import com.victorjv.pagamento.services.TransacaoService;
@@ -39,10 +40,10 @@ public class Application implements CommandLineRunner {
 
         repository.saveAll(Arrays.asList(c1, c2, c3));
 
-        Transacao t1 = new Transacao(null, c2, c3, 10.0, LocalDateTime.now());
-        Transacao t2 = new Transacao(null, c1, c3, 100.0, LocalDateTime.now());
-        Transacao t3 = new Transacao(null, c1, c2, 24.0,LocalDateTime.now());
-        Transacao t4 = new Transacao(null, c2, c3, 16.0,LocalDateTime.now());
+       /* TransacaoDTO t1 = new TransacaoDTO(5.0, c2.getId(), c3.getId());
+        TransacaoDTO t2 = new TransacaoDTO(10.0, c1.getId(), c3.getId());
+        TransacaoDTO t3 = new TransacaoDTO(2.0, c1.getId(), c2.getId());
+        TransacaoDTO t4 = new TransacaoDTO(9.0, c2.getId(), c3.getId());
 
 
         transacaoService.transferir(t1);
@@ -50,6 +51,8 @@ public class Application implements CommandLineRunner {
         transacaoService.transferir(t3);
         transacaoService.transferir(t4);
 
+
+        */
 
     }
 }
