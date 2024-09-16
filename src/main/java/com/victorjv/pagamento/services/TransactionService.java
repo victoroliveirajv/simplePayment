@@ -29,12 +29,8 @@ public class TransactionService {
         User receiver = userService.toUser(userService.findById(transactionDTO.receiverId()));
 
         validateTransaction(payer,  receiver, transactionDTO.amount());
-        try{
-            autorizationTransation.authorizeTransaction();
-        }
-        catch (Exception e){
-            throw new TransactionError("Erro "+ e.getMessage());
-        }
+
+        autorizationTransation.authorizeTransaction();
 
         Transaction transaction = new Transaction(null, payer, receiver, transactionDTO.amount(), LocalDateTime.now());
 
@@ -45,7 +41,7 @@ public class TransactionService {
 
     }
 
-    public void validateTransaction(User sender, User reciver, Double amount){
+    private void validateTransaction(User sender, User reciver, Double amount){
 
         if (sender.getType() == 2){
             throw new TransactionError("Usuarios lojistas não podem realizar transação.");
@@ -58,11 +54,14 @@ public class TransactionService {
         if (sender.equals(reciver)){
             throw new TransactionError("Não é permitido transferencias entre a mesma carteira.");
         }
-
     }
+
+
+    // ========================= CRUD ===========================
 
     public List<Transaction> findAll(){
         return transactionRepository.findAll();
     }
+
 
 }

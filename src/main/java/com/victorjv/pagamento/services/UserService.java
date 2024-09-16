@@ -3,7 +3,7 @@ package com.victorjv.pagamento.services;
 
 import com.victorjv.pagamento.entities.User;
 import com.victorjv.pagamento.entities.dtos.UserDTO;
-import com.victorjv.pagamento.entities.enums.TYPE;
+import com.victorjv.pagamento.entities.enums.Type;
 import com.victorjv.pagamento.repositories.UserRepository;
 import com.victorjv.pagamento.services.exceptions.TransactionError;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,16 @@ public class UserService {
         repository.save(user);
     }
 
+    public static UserDTO toDTO(User user){
+        return new UserDTO(user.getId(), user.getName(), user.getDocument(),
+                user.getEmail(), user.getBalance(), Type.getType(user.getType()));
+    }
+
+    public User toUser(UserDTO userDTO){
+        return repository.findById(userDTO.id()).orElse(null);
+    }
+
+    // ========================= CRUD ===========================
 
     public User insert(User user){
 
@@ -43,7 +53,7 @@ public class UserService {
 
     public UserDTO findById(Long id){
 
-        return UserService.toDTO(repository.findById(id).orElseThrow(() -> new TransactionError("Carteira não encontrada")));
+        return UserService.toDTO(repository.findById(id).orElseThrow(() -> new NullPointerException("Nenhum usuario encontrado com o id " + id)));
     }
 
     public UserDTO finByDocument(String document){
@@ -52,7 +62,7 @@ public class UserService {
         Optional<User> user = repository.findByDocument(document);
 
         if (user.stream().toList().isEmpty()) {
-            throw new RuntimeException("Nenhuma carteira encontrada com o documento " + document);
+            throw new NullPointerException ("Nenhuma carteira encontrada com o documento " + document);
         }
 
         return UserService.toDTO(user.stream().toList().getFirst());
@@ -78,15 +88,6 @@ public class UserService {
         user.setEmail(obj.getEmail());
         user.setPassword(obj.getPassword());
         user.setType(obj.getType());
-    }
-
-    public static UserDTO toDTO(User user){
-        return new UserDTO(user.getId(), user.getName(), user.getDocument(),
-                user.getEmail(), user.getBalance(), TYPE.getTipo(user.getType()));
-    }
-
-    public User toUser(UserDTO userDTO){
-        return repository.findById(userDTO.id()).orElse(null);
     }
 
 }

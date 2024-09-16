@@ -1,13 +1,13 @@
 package com.victorjv.pagamento.entities;
 
-import com.victorjv.pagamento.entities.enums.TYPE;
+import com.victorjv.pagamento.entities.enums.Type;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name="tb_carteira")
+@Table(name="tb_users")
 public class User implements Serializable {
 
     @Id
@@ -29,7 +29,7 @@ public class User implements Serializable {
     public User(){
     }
 
-    public User(Long id, String name, String document, String email, String password, Double balance, TYPE cod) {
+    public User(Long id, String name, String document, String email, String password, Double balance, Type cod) {
         this.id = id;
         this.name = name;
         this.document = document;
@@ -92,7 +92,7 @@ public class User implements Serializable {
     }
 
 
-    private void setTypePrivate(TYPE type) {
+    private void setTypePrivate(Type type) {
         if (type != null){
             this.type = type.getCod();
         }

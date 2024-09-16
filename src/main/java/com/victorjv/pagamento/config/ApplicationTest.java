@@ -1,7 +1,7 @@
 package com.victorjv.pagamento.config;
 
 import com.victorjv.pagamento.entities.User;
-import com.victorjv.pagamento.entities.enums.TYPE;
+import com.victorjv.pagamento.entities.enums.Type;
 import com.victorjv.pagamento.repositories.UserRepository;
 import com.victorjv.pagamento.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 @Configuration
 @Profile("test")
-public class Application implements CommandLineRunner {
+public class ApplicationTest implements CommandLineRunner {
 
     @Autowired
     private UserRepository repository;
@@ -28,11 +28,11 @@ public class Application implements CommandLineRunner {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
         User u1 = new User(null, "José Rodrigues", "99999999-01","jose@gmail.com",
-                "54823",546.0, TYPE.COMMON );
+                "54823",546.0, Type.COMMON );
         User u2 = new User(null, "Bruna Souza", "9858545-01","bruna@gmail.com",
-                "7879",1000.0, TYPE.COMMON );
+                "7879",1000.0, Type.COMMON );
         User u3 = new User(null, "Atacarejao", "878745-5","atacarejao@gmail.com",
-                "458744",1200.0, TYPE.LOGIST);
+                "458744",1200.0, Type.LOGIST);
 
         repository.saveAll(Arrays.asList(u1, u2, u3));
 

@@ -1,6 +1,7 @@
 package com.victorjv.pagamento.resources.exceptions;
 
 
+import com.victorjv.pagamento.services.exceptions.AutorizationError;
 import com.victorjv.pagamento.services.exceptions.TransactionError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class ResourceExceptionHandler {
 
 
     @ExceptionHandler(TransactionError.class)
-    public ResponseEntity<StandardError> error(TransactionError e, HttpServletRequest request){
+    public ResponseEntity<StandardError> transactionError(TransactionError e){
 
         String error = "Erro de tansasão";
         HttpStatus status = HttpStatus.NOT_FOUND;
@@ -25,8 +26,8 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(st);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<StandardError> error(RuntimeException e, HttpServletRequest request){
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<StandardError> nullPointerException(NullPointerException e){
 
         String error = "Não encontrado";
         HttpStatus status = HttpStatus.NOT_FOUND;
@@ -34,5 +35,16 @@ public class ResourceExceptionHandler {
 
         return ResponseEntity.status(status).body(st);
     }
+
+    @ExceptionHandler(AutorizationError.class)
+    public ResponseEntity<StandardError> autorizationError(AutorizationError e){
+
+        String error = "Não autorizado";
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        StandardError st = new StandardError(Instant.now(), status.value(), error, e.getMessage());
+
+        return ResponseEntity.status(status).body(st);
+    }
+
 
 }

@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+// No yet implemented (Ainda não implementado)
+
 @Service
 public class NotificationService {
 
